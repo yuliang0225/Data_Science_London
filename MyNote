@@ -1,12 +1,38 @@
-## Title  2017/12/25
+Date: 2017/12/25
+Kaggle Test No. 1
+====================
 Data Science London + Scikit-learn
+-----------------------------------
 https://www.kaggle.com/c/data-science-london-scikit-learn#description
+# Data
+>## TrainSet: 40*1000
+>
+>## TestSet:  40*9000
 
-## Data
-TrainSet: 40*1000
-TestSet:  40*9000
+# Output
+>## Id  Solution
 
-## OutPut
-Id  Solution
+# Samples division
+> ## Cross validation
 
-##
+> ## Kennard-Stone
+
+# Feature method
+>## PCA
+>## PLS-UVE
+>
+>## Random Forest
+
+# Models
+>## KNN
+>> ### N number 3
+>> ### Trainset Accuracy: 90%   
+>> ### Test Accuracy: 80%
+
+>## SVM
+>
+>## ELM
+>
+>## LVQ
+
+# Results Comparation
