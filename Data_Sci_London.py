@@ -16,8 +16,9 @@ from sklearn import *
 from sklearn.preprocessing import MinMaxScaler 
 import os
 from sklearn.neighbors import KNeighborsClassifier
+import matplotlib.pyplot as plt 
 #%% Set path
-# os.chdir(r"/home/smuch/文档/Data_Science_London")
+os.chdir(r"/home/smuch/文档/Data_Science_London")
 os.getcwd()
 #%% Data import
 data = {
@@ -54,7 +55,7 @@ for n_neighbors in range(1,50):
     
 plt.errorbar(range(1,50),ScoreMean,yerr=ScoreSD)
 #%%
-ScoreMean.index(max(ScoreMean)) # N =3
+max(ScoreMean) # N =3
 #%%
 KNNclf =KNeighborsClassifier(n_neighbors = 3)
 KNNclf.fit(traIn,traOu)
@@ -69,9 +70,54 @@ from sklearn.decomposition import PCA
 pca = PCA(n_components=None)
 pca.fit(traInScale)
 traIn_pca = pca.transform(traInScale)
-
+#%% SVM
+from sklearn.svm import SVC
+svm = SVC(kernel = 'rbf', C=0.1, gamma = 1)
+scores = cross_val_score(svm,traInScale,traOu,cv=10)
+print(scores)
+scores.mean()
+#%% SVM RBF c g
+def SvmRbfPara(tranIn,tranOut,step,Cmin,Cmax,gmin,gmax,cvnum):
+    AccSum = list()
+    m = (np.arange(Cmin,Cmax+1,step,dtype=float)).size
+    n = (np.arange(gmin,gmax+1,step,dtype=float)).size
+    for c in np.arange(Cmin,Cmax+1,step,dtype=float):
+        for g in np.arange(gmin,gmax+1,step,dtype=float):
+            svm = SVC(kernel = 'rbf', C=2**c, gamma = 2**g)
+            scores = cross_val_score(svm,tranIn,tranOut,cv=cvnum)
+            AccSum.append(scores.mean())
+    rearr = np.asarray(AccSum).reshape(n,m)
+    return rearr
 #%%
-temp=traIn_pca[:,1]
+temp = SvmRbfPara(traInScale,traOu,0.5,-40,0,-20,5,5)
+#%%
+index = np.where(temp==np.max(temp))
+np.max(temp)
+index
+#%% 
+Cmin = -2
+Cmax = 2
+gmin = -2
+gmax = 2
+cvnum = 5
+tranOut = traOu
+tranIn = traInScale
+step=1
+#%%
+i = (np.arange(Cmin,Cmax+1,step)).size
+j = (np.arange(gmin,gmax+1,step)).size
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

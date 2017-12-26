@@ -14,11 +14,16 @@ https://www.kaggle.com/c/data-science-london-scikit-learn#description
 
 # Samples division
 > ## Cross validation
+>>### CV = 5
 
 > ## Kennard-Stone
 
 # Feature method
+>## Corrmap
+>> ![Corrmap](/home/smuch/文档/Data_Science_London/Rplot.png "Corrmap")
+
 >## PCA
+>
 >## PLS-UVE
 >
 >## Random Forest
@@ -26,9 +31,10 @@ https://www.kaggle.com/c/data-science-london-scikit-learn#description
 # Models
 >## KNN
 >> ### N number 3
->> ### Trainset Accuracy: 90%   
->> ### Test Accuracy: 80%
-
+>> ![KNN_Nvalue](/home/smuch/文档/Data_Science_London/KNN_Nvalue.png "KNN_Nvalue")
+>> ### Trainset Accuracy: 90.600%   
+>> ### Test Accuracy: 88.785%
+>
 >## SVM
 >
 >## ELM
