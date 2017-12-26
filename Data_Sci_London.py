@@ -15,10 +15,9 @@ import glob, re
 from sklearn import *
 from sklearn.preprocessing import MinMaxScaler 
 import os
-import matplotlib.pyplot as plt
-from pandas.tools.plotting import scatter_matrix
+from sklearn.neighbors import KNeighborsClassifier
 #%% Set path
-os.chdir(r"/home/smuch/文档/Data_Science_London")
+# os.chdir(r"/home/smuch/文档/Data_Science_London")
 os.getcwd()
 #%% Data import
 data = {
@@ -30,14 +29,50 @@ data = {
 traIn = data['traInput']
 tesIn = data['tesInput']
 traOu = data['traOutput']    
-#%% Data View
-train_dataframe = pd.DataFrame(data=traIn[0:50])
 
-#%%
-plt.plot(traIn[:][1],traIn[:][2],'o')
-
-#%%
+#%% Normalized
 scaler =MinMaxScaler()
 scaler.fit(traIn)
 traInScale = scaler.transform(traIn)
+#%% Cross Validation
+from sklearn.model_selection import cross_val_score
+
+scores = cross_val_score(KNNclf,traIn,traOu,cv=10)
+print(scores)
+scores.mean()
+
+#%% KNN Models
+KNNclf =KNeighborsClassifier(n_neighbors = 3)
+#%% KNN Models N selection
+ScoreMean = []  # Accuracy Mean
+ScoreSD =[]     # Accuracy SD
+for n_neighbors in range(1,50):
+    KNNclf =KNeighborsClassifier(n_neighbors = n_neighbors)
+    scores = cross_val_score(KNNclf,traIn,traOu,cv=5)
+    ScoreMean.append(scores.mean())
+    ScoreSD.append(scores.var())
+    
+plt.errorbar(range(1,50),ScoreMean,yerr=ScoreSD)
 #%%
+ScoreMean.index(max(ScoreMean)) # N =3
+#%%
+KNNclf =KNeighborsClassifier(n_neighbors = 3)
+KNNclf.fit(traIn,traOu)
+
+KNNResult = KNNclf.predict(tesIn)
+save = pd.DataFrame({'ID':range(1,9001),'Value':KNNResult}) 
+save.to_csv('b.csv',index=False,sep=b',') 
+
+
+#%% PCA 
+from sklearn.decomposition import PCA
+pca = PCA(n_components=None)
+pca.fit(traInScale)
+traIn_pca = pca.transform(traInScale)
+
+#%%
+temp=traIn_pca[:,1]
+
+
+
+
