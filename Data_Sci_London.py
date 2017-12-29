@@ -78,7 +78,6 @@ print(scores)
 scores.mean()
 #%% SVM RBF c g
 def SvmRbfPara(tranIn,tranOut,step,Cmin,Cmax,gmin,gmax,cvnum):
-    import seaborn as sns
     AccSum = list()
     m = (np.arange(Cmin,Cmax+1,step,dtype=float)).size
     n = (np.arange(gmin,gmax+1,step,dtype=float)).size
