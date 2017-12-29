@@ -78,6 +78,7 @@ print(scores)
 scores.mean()
 #%% SVM RBF c g
 def SvmRbfPara(tranIn,tranOut,step,Cmin,Cmax,gmin,gmax,cvnum):
+    import seaborn as sns
     AccSum = list()
     m = (np.arange(Cmin,Cmax+1,step,dtype=float)).size
     n = (np.arange(gmin,gmax+1,step,dtype=float)).size
@@ -88,12 +89,20 @@ def SvmRbfPara(tranIn,tranOut,step,Cmin,Cmax,gmin,gmax,cvnum):
             AccSum.append(scores.mean())
     rearr = np.asarray(AccSum).reshape(n,m)
     return rearr
-#%%
-temp = SvmRbfPara(traInScale,traOu,0.5,-40,0,-20,5,5)
-#%%
+#%% ALL parameters
+temp = SvmRbfPara(traInScale,traOu,0.05,-5,5,-5,5,5)
+np.savetxt("SVM_c_g_AP.csv", temp, delimiter=",")
+#%% Plot
+import seaborn as sns
+plt.figure(figsize=(4,4),dpi=600)
+SVMcg_df = pd.DataFrame(temp,columns=[x for x in np.arange(-5,5+1,0.05,dtype=float)],index=[x for x in np.arange(-5,5+1,0.05,dtype=float)])
+sns.heatmap(SVMcg_df,annot=False,vmin=0.8)
+plt.show()
+#%% Get optimal C and g
 index = np.where(temp==np.max(temp))
 np.max(temp)
-index
+bestc = 2**np.arange(-5,5+1,0.05,dtype=float)[index[0][0]]
+bestg = 2**np.arange(-5,5+1,0.05,dtype=float)[index[1][0]]
 #%% 
 Cmin = -2
 Cmax = 2

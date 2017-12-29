@@ -30,12 +30,18 @@ https://www.kaggle.com/c/data-science-london-scikit-learn#description
 
 # Models
 >## KNN
+>> ### All parameters
 >> ### N number 3
 >> ![KNN_Nvalue](/home/smuch/文档/Data_Science_London/KNN_Nvalue.png "KNN_Nvalue")
 >> ### Trainset Accuracy: 90.600%   
 >> ### Test Accuracy: 88.785%
 >
 >## SVM
+>>### All parameters
+>> ![AP_SVM_CG](/home/smuch/文档/Data_Science_London/SVM_CG_AP.png "AP_SVM_CG")
+>>### Optimal C = 2.0705298476827241;
+>>### Optimal g = 1.1095694720678309;
+>>### Accuracy = 87.90 %
 >
 >## ELM
 >
